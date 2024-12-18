@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.crud.crud_app.entities.Product;
 import com.crud.crud_app.services.IProductService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,13 +44,13 @@ public class ProductController {
     }
 
     @PostMapping("/save-product")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
         Product productNew = productService.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(productNew);
     }
 
     @PutMapping("/update-product/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @Valid @RequestBody Product product) {
         Product updatedProduct = productService.update(id, product);
         return ResponseEntity.ok(updatedProduct);
     }
