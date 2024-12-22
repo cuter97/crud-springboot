@@ -1,4 +1,4 @@
-package com.crud.crud_app.services;
+package com.crud.crud_app.services.product;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,13 +33,14 @@ public class ProductServiceImpl implements IProductService {
     @Transactional
     @Override
     public Product save(Product product) {
-        if (product == null) 
+        if (product == null)
             throw new ApiErrorException("Product cannot be null", HttpStatus.BAD_REQUEST.value());
-        
+
         try {
             return productRepository.save(product);
         } catch (Exception e) {
-            throw new ApiErrorException("Error saving product: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+            throw new ApiErrorException("Error saving product: " + e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
 
@@ -58,7 +59,8 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public void delete(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ApiErrorException("Product not found with ID: " + id, HttpStatus.BAD_REQUEST.value()));
+                .orElseThrow(() -> new ApiErrorException("Product not found with ID: " + id,
+                        HttpStatus.BAD_REQUEST.value()));
         productRepository.delete(product);
     }
 

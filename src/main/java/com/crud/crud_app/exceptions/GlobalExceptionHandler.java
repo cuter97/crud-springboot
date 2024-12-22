@@ -2,6 +2,7 @@ package com.crud.crud_app.exceptions;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,5 +33,11 @@ public class GlobalExceptionHandler {
 
         validationError.setDetails(errorMessages);
         return ResponseEntity.badRequest().body(validationError);
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<ApiError> handleDataAccessException(DataAccessException e) {
+        ApiError error = new ApiError("Database error: " + e.getMostSpecificCause().getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 }

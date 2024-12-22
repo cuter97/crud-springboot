@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.crud_app.entities.Product;
-import com.crud.crud_app.services.IProductService;
+import com.crud.crud_app.services.product.IProductService;
 
 import jakarta.validation.Valid;
 
